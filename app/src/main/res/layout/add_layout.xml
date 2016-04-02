@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="@string/add_title"
+        android:textSize="20dp"/>
+
+    <EditText
+        android:id="@+id/et_cat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/category" />
+
+    <EditText
+        android:id="@+id/et_name_en"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/name_en"
+        android:layout_marginTop="0dp" />
+
+    <EditText
+        android:id="@+id/et_name_te"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/name_te"
+        android:layout_marginTop="0dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/et_req_qty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/spinner_units"
+            android:hint="@string/req_qty"
+            android:layout_marginTop="0dp"
+            android:singleLine="true" />
+
+        <Spinner
+            android:id="@+id/spinner_units"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:entries="@array/unit_array"
+            android:prompt="@string/prompt"/>
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/add" />
+
+</LinearLayout>

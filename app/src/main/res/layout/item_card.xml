@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/ll_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="5dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_name_en"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/def_name_en" />
+
+        <TextView
+            android:id="@+id/tv_name_te"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:text="@string/def_name_te" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_avl_qty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_toRightOf="@+id/ll_name"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_avl_qty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/def_avl_qty"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
+            android:text="@string/avl"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_req_qty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_toRightOf="@+id/ll_avl_qty"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_req_qty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/def_req_qty"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
+            android:text="@string/req"/>
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"/>
+
+
+</RelativeLayout>

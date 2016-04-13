@@ -84,9 +84,8 @@ public class DisplayFragment extends ListFragment implements LoaderManager.Loade
         String selection = null;
         String[] selectionArgs = null;
         if(category != null) {
-            selection = Constants.ProviderConstants.CATEGORY + " = ?";
-            selectionArgs = new String[1];
-            selectionArgs[0] = category;
+            selection = Constants.ProviderConstants.CATEGORY + "=?";
+            selectionArgs = new String[]{category};
         }
 
         return new CursorLoader(getActivity(), baseUri, projection, selection, selectionArgs, null);

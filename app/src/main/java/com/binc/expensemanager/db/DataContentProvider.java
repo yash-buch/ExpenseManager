@@ -40,9 +40,9 @@ public class DataContentProvider extends ContentProvider {
 
         if(rowId > 0) {
             Uri _uri = ContentUris.withAppendedId(Uri.parse(Constants.ProviderConstants.URL), rowId);
+            getContext().getContentResolver().notifyChange(_uri, null);
             return _uri;
         }
-        getContext().getContentResolver().notifyChange(uri, null);
         throw new SQLException("Failed to add a record into " + uri);
         //throw new UnsupportedOperationException("Not yet implemented");
     }

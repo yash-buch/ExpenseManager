@@ -2,6 +2,9 @@ package com.binc.expensemanager.ui;
 
 import android.app.FragmentManager;
 import android.content.SharedPreferences;
+import android.database.ContentObserver;
+import android.net.Uri;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +20,7 @@ import android.widget.LinearLayout;
 import com.binc.expensemanager.R;
 import com.binc.expensemanager.ui.AddDialog;
 import com.binc.expensemanager.ui.DisplayFragment;
+import com.binc.expensemanager.util.Constants;
 
 public class DisplayActivity extends BaseActivity implements DisplayFragment.ListenerCallback{
 
@@ -49,6 +53,22 @@ public class DisplayActivity extends BaseActivity implements DisplayFragment.Lis
 
         ll_remove = (LinearLayout) DisplayActivity.this.findViewById(R.id.ll_remove);
         ll_remove.setOnDragListener(mDragListener);
+
+        //content observer
+        getApplicationContext().getContentResolver().registerContentObserver(Uri.parse(Constants.ProviderConstants.URL), true, new ContentObserver(new Handler()) {
+
+
+            @Override
+            public boolean deliverSelfNotifications() {
+                return false;
+            }
+
+            @Override
+            public void onChange(boolean selfChange) {
+                super.onChange(selfChange);
+                //setupView();
+            }
+        });
     }
 
     private void setupView(){

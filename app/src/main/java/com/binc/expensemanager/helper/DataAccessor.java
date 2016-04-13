@@ -2,6 +2,7 @@ package com.binc.expensemanager.helper;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.net.Uri;
 
 import com.binc.expensemanager.bean.DataBean;
@@ -16,7 +17,7 @@ import java.util.List;
  */
 public class DataAccessor {
     private Context mContext;
-    private HashMap<String, Boolean> cat_map;
+    private List<String> categoryList;
     private static DataAccessor mInstance = null;
 
     private DataAccessor(Context ctx){
@@ -40,10 +41,11 @@ public class DataAccessor {
         cv.put(Constants.ProviderConstants.AVAILABLE_QTY, data.getAvb_qty());
         cv.put(Constants.ProviderConstants.REQUIRED_QTY, data.getReq_qty());
 
+        Uri retUri = mContext.getContentResolver().insert(_uri, cv);
         //maintain category list
-        updateCategoryList(data.getCategory());
+        updateCategoryList(data.getCategory(), _uri);
 
-        return mContext.getContentResolver().insert(_uri, cv);
+        return retUri;
     }
 
     public int delete(String uri, DataBean data){
@@ -68,24 +70,41 @@ public class DataAccessor {
         return mContext.getContentResolver().update(uri, cv, selection, selection_args);
     }
 
-    private void updateCategoryList(String cat){
-        if(cat_map == null){
-            cat_map = new HashMap<>();
-            cat_map.put(cat,true);
-        } else {
-            if(!cat_map.containsKey(cat)){
-                cat_map.put(cat,true);
-            }
+    private void updateCategoryList(){
+        categoryList = categoryList == null ? new ArrayList<String>() : categoryList;
+        Cursor cursor = mContext.getContentResolver().query(Uri.parse(Constants.ProviderConstants.URL),
+                new String[]{Constants.ProviderConstants.CATEGORY}, null, null, null);
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            categoryList.add(cursor.getString(0));
+            cursor.moveToNext();
         }
     }
 
-    public List<String> getCategoryList(){
-        if(cat_map == null)
-            return null;
+    private void updateCategoryList(String cat, Uri uri){
+        if(categoryList == null){
+            updateCategoryList();
+        }else {
+            String cat_query = "SELECT COUNT(*) FROM " + Constants.TableConstants.TABLE_NAME + " WHERE " +
+                    Constants.ProviderConstants.CATEGORY + " = ?";
+            String[] sel_arg = new String[]{cat};
 
-        List<String> cat_list = new ArrayList<>();
-        cat_list.addAll(cat_map.keySet());
-        return cat_list;
+            Cursor cursor = mContext.getContentResolver().query(uri,
+                    new String[]{Constants.ProviderConstants.CATEGORY}, cat_query, sel_arg, null);
+
+            if(cursor.getCount() == 0){
+                categoryList.add(cat);
+            }
+
+        }
+
+    }
+
+    public List<String> getCategoryList(){
+        if(categoryList == null || categoryList.size() == 0) {
+            updateCategoryList();
+        }
+        return categoryList;
     }
 
 // ADD A FAIL-SAFE LATER
